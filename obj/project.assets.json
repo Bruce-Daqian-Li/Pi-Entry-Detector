@@ -12071,30 +12071,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HP\\.nuget\\packages\\": {},
+    "C:\\Users\\14017\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Pi-Entry-Detector\\Pi-Entry-Detector.csproj",
+      "projectUniqueName": "d:\\GIT\\Pi-Entry-Detector\\Pi-Entry-Detector.csproj",
       "projectName": "Pi-Entry-Detector",
-      "projectPath": "D:\\Pi-Entry-Detector\\Pi-Entry-Detector.csproj",
-      "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-      "outputPath": "D:\\Pi-Entry-Detector\\obj\\",
+      "projectPath": "d:\\GIT\\Pi-Entry-Detector\\Pi-Entry-Detector.csproj",
+      "packagesPath": "C:\\Users\\14017\\.nuget\\packages\\",
+      "outputPath": "d:\\GIT\\Pi-Entry-Detector\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\14017\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.2"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
