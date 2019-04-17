@@ -1,4 +1,22 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿var fetchCount = 0;
+var lastTimeRangeId = "";
+var lastEntryId = "";
 
-// Write your JavaScript code.
+function onJSONGet(data) {
+    if (fetchCount != 0) {
+        if (lastEntryId != data.entry.id) {
+            console.log(data);
+        }
+        if (lastTimeRangeId != data.range.id) {
+            console.log(data.range.id);
+        }
+    }
+
+    lastEntryId = data.entry.id;
+    lastTimeRangeId = data.range.id;
+    fetchCount++;
+}
+function fetchJson() {
+    $.getJSON("/Status", onJSONGet);
+}
+setInterval(fetchJson, 3000);

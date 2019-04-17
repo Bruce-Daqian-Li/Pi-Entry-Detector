@@ -1,8 +1,58 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+ViewData["Title"] = "Home Page";
 }
+<style>
+    .time {
+        font-style: italic;
+        color: rgb(150, 16, 16);
+        background-color: rgba(168, 168, 168, 0.514);
+        /* border: 1px solid rgb(100, 57, 57);*/
+    }
 
+    ul {
+        list-style-type: none;
+    }
+</style>
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Entry Detect Device</h1>
+    <br />
+    <br />
+    <article title="EDD Entry Log" id="mainContentBlog">
+        <ul style="text-align: left">
+            @{var reversed = EDD.Utils.InternalCommunication.EntryRecord; }
+            @{reversed.Reverse();}
+            @foreach (var item in reversed)
+            {
+            <li id="@item.Id">
+                From
+                <span class="time">@item.FirstSeen.ToNormalString()</span>
+                &nbsp;To&nbsp;
+                <span class="time">@item.LastSeen.ToNormalString()</span>
+                <br />
+                Frequency:
+                <span class="time">@item.Frequency Times in last 5 minutes.</span>
+
+                    <div class="container">
+                        Range Details:
+                        <ul id="@(item.Id)_time_ranges">
+                            @if (item.Records != null)
+                            {
+                                var xreversed = item.Records;
+                                xreversed.Reverse();                                
+                                foreach (var xitem in xreversed)
+                                {
+                                    @Html.Raw("<hr /><span>ID: " + xitem.Id + "</span><br />")
+                                    @Html.Raw("<div> Range: ")
+                                    @Html.Raw("<span class=\"time\">" + xitem.StartAt.ToNormalString() + "</span> - ")
+                                    @Html.Raw("<span class=\"time\">" + xitem.EndAt.ToNormalString() + "</span>")
+                                    @Html.Raw("</div>")
+                                }                          
+                            }
+                        </ul>
+                    </div>
+            </li>
+            <hr />
+            }
+        </ul>
+    </article>
 </div>

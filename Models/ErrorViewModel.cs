@@ -1,6 +1,6 @@
 using System;
 
-namespace Pi_Entry_Detector.Models
+namespace EDD.Models
 {
     public class ErrorViewModel
     {
