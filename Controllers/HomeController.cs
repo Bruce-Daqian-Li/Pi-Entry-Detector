@@ -24,10 +24,18 @@ namespace EDD.Controllers
         [Route("/status")]
         public IActionResult Status()
         {
+            var x = InternalCommunication.CurrentTimeRange;
+            string a = x.StartAt.TimeOfDay.ToString();
+            string b = x.EndAt.TimeOfDay.ToString();
             return Json(new
             {
                 entry = InternalCommunication.CurrentEntry,
-                range = InternalCommunication.CurrentTimeRange
+                range = new
+                {
+                    id = x.Id,
+                    startAt = a,
+                    endAt = b
+                }
             });
         }
 

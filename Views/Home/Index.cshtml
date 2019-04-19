@@ -9,18 +9,31 @@ ViewData["Title"] = "Home Page";
         /* border: 1px solid rgb(100, 57, 57);*/
     }
 
+    .warning {
+        background-color: rgb(255, 174, 174);
+        border: 1px solid black;
+        height: 100px;
+        width: 100%;
+        font-family: monospace;
+        border-radius: 10px;
+        font-size: 16px;
+    }
+
     ul {
         list-style-type: none;
     }
 </style>
 <div class="text-center">
     <h1 class="display-4">Entry Detect Device</h1>
+    <hr />
+    <div class="warning" id="warningArea" hidden></div>
+    <hr />
     <br />
     <br />
     <article title="EDD Entry Log" id="mainContentBlog">
-        <ul style="text-align: left">
-            @{var reversed = EDD.Utils.InternalCommunication.EntryRecord; }
-            @{reversed.Reverse();}
+        <ul style="text-align: left" id="mainlist">
+            @{ var reversed = EDD.Utils.InternalCommunication.EntryRecord; }
+            @{ reversed.Sort(new EDD.Utils.InternalCommunication.EntryInfoComparer()); }
             @foreach (var item in reversed)
             {
             <li id="@item.Id">
@@ -32,24 +45,23 @@ ViewData["Title"] = "Home Page";
                 Frequency:
                 <span class="time">@item.Frequency Times in last 5 minutes.</span>
 
-                    <div class="container">
-                        Range Details:
-                        <ul id="@(item.Id)_time_ranges">
-                            @if (item.Records != null)
-                            {
-                                var xreversed = item.Records;
-                                xreversed.Reverse();                                
-                                foreach (var xitem in xreversed)
-                                {
-                                    @Html.Raw("<hr /><span>ID: " + xitem.Id + "</span><br />")
-                                    @Html.Raw("<div> Range: ")
-                                    @Html.Raw("<span class=\"time\">" + xitem.StartAt.ToNormalString() + "</span> - ")
-                                    @Html.Raw("<span class=\"time\">" + xitem.EndAt.ToNormalString() + "</span>")
-                                    @Html.Raw("</div>")
-                                }                          
-                            }
-                        </ul>
-                    </div>
+                <div class="container">
+                    Range Details:
+                    <ul id="@(item.Id)_time_ranges">
+                        @{
+                        var xreversed = item.Records;
+                        xreversed.Sort(new EDD.Utils.InternalCommunication.TimeRangeComparer());;
+                        foreach (var xitem in xreversed)
+                        {
+                            <!-- @Html.Raw("<hr /><span>ID: " + xitem.Id + "</span><br />") -->
+                            @Html.Raw("<div> From: ")
+                            @Html.Raw("<span class=\"time\">" + xitem.StartAt.ToNormalString() + "</span>  ")
+                            @Html.Raw(" To: <span class=\"time\">" + xitem.EndAt.ToNormalString() + "</span>")
+                            @Html.Raw("</div>")
+                        }
+                        }
+                    </ul>
+                </div>
             </li>
             <hr />
             }

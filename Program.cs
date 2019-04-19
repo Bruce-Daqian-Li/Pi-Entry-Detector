@@ -17,7 +17,7 @@ namespace EDD
     public class Program
     {
 
-        public readonly static bool DEBUG_MODE = true;
+        public readonly static bool DEBUG_MODE = false;
 
         //This is the main entry of the project
         public static void Main(string[] args)
@@ -44,69 +44,6 @@ namespace EDD
         {
             InternalCommunication.Initialise();
             L.W("Generate Fake Data");
-            InternalCommunication.EntryRecord = new List<EntryInfo>()
-            {
-                new EntryInfo() { FirstSeen = DateTime.Now, LastSeen = DateTime.Now, Frequency = 10, Records = new List<TimeRange>(){
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now }
-                } },
-                new EntryInfo() { FirstSeen = DateTime.Now, LastSeen = DateTime.Now, Frequency = 10, Records = new List<TimeRange>(){
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now }
-                } },
-                new EntryInfo() { FirstSeen = DateTime.Now, LastSeen = DateTime.Now, Frequency = 10, Records = new List<TimeRange>(){
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now }
-                } },
-                new EntryInfo() { FirstSeen = DateTime.Now, LastSeen = DateTime.Now, Frequency = 10, Records = new List<TimeRange>(){
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now }
-                } },
-                new EntryInfo() { FirstSeen = DateTime.Now, LastSeen = DateTime.Now, Frequency = 10, Records = new List<TimeRange>(){
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now },
-                    new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now }
-                } }
-            };
 
             Thread fakeAdder = new Thread(FakeAddWorker);
             fakeAdder.Start();
@@ -116,7 +53,7 @@ namespace EDD
                 while (true)
                 {
                     InternalCommunication.ProcessTimeEntry(new TimeRange() { StartAt = DateTime.Now, EndAt = DateTime.Now });
-                    Thread.Sleep(new Random().Next(3, 6) * 1000);
+                    Thread.Sleep(new Random().Next(5, 15) * 1000);
                 }
             }
         }

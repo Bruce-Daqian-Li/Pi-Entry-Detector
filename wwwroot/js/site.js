@@ -5,10 +5,12 @@ var lastEntryId = "";
 function onJSONGet(data) {
     if (fetchCount != 0) {
         if (lastEntryId != data.entry.id) {
-            console.log(data);
+            location.reload()
         }
         if (lastTimeRangeId != data.range.id) {
-            console.log(data.range.id);
+            $("#warningArea").removeAttr("hidden");
+            $("#warningArea").html("Warning: New entry detected! <br /> Time Range: " + data.range.startAt + " - " + data.range.endAt)
+            setTimeout(() => { $("#warningArea").attr("hidden", "true"); }, 5000)
         }
     }
 
@@ -19,4 +21,4 @@ function onJSONGet(data) {
 function fetchJson() {
     $.getJSON("/Status", onJSONGet);
 }
-setInterval(fetchJson, 3000);
+setInterval(fetchJson, 2000);

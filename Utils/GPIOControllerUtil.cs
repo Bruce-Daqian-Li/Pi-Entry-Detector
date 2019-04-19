@@ -19,13 +19,33 @@ namespace EDD.Utils
         public static EntryInfo CurrentEntry;
         public static TimeRange CurrentTimeRange;
 
+        public class EntryInfoComparer : IComparer<EntryInfo>
+        {
+            public int Compare(EntryInfo x, EntryInfo y)
+            {
+                return y.FirstSeen.CompareTo(x.FirstSeen);
+            }
+        }
+
+        public class TimeRangeComparer : IComparer<TimeRange>
+        {
+            public int Compare(TimeRange x, TimeRange y)
+            {
+                return y.StartAt.CompareTo(x.StartAt);
+            }
+        }
         public static void Initialise()
         {
             L.I("Initialising GPIO Reader...");
             L.W("Starting Communication Bus...");
             EntryRecord = new List<EntryInfo>();
             CurrentEntry = new EntryInfo();
-            CurrentTimeRange = new TimeRange();
+            currentRangeStartAt = DateTime.Now;
+            EntryRecord.Add(CurrentEntry);
+            CurrentEntry.FirstSeen = DateTime.Now;
+            CurrentEntry.LastSeen = DateTime.MaxValue;
+            CurrentEntry.Records = new List<TimeRange>();
+            //CurrentTimeRange = new TimeRange();
 
             if (!Program.DEBUG_MODE)
             {
@@ -62,13 +82,14 @@ namespace EDD.Utils
             L.I("Starting Core GPIO Detection Process...");
             while (true)
             {
-                TimeRange _currentRange = ListenTimeRange(pin, currentRangeStartAt);
-                ProcessTimeEntry(_currentRange);
+                CurrentTimeRange = ListenTimeRange(pin, currentRangeStartAt);
+                ProcessTimeEntry(CurrentTimeRange);
             }
         }
 
         private static TimeRange ListenTimeRange(IGpioPin pin, DateTime rangeStart)
         {
+            rangeStart = DateTime.Now;
             TimeRange _currentRange = new TimeRange();
             var status = pin.Read();
             if (status)
