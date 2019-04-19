@@ -16,19 +16,19 @@ namespace EDD
 {
     public class Program
     {
-
-        public readonly static bool DEBUG_MODE = false;
-
         //This is the main entry of the project
         public static void Main(string[] args)
         {
             L.InitLog();
             L._LogLevel = LogLevel.DBG;
             L.W("Starting EDD Project...");
-            L.D("Initialising BootStrapWiringPi");
 
-            if (DEBUG_MODE) DEBUG();
-            else InitialiseGPIO();
+#if (DEBUG)
+            DEBUG();
+#else
+            L.D("Initialising BootStrapWiringPi");
+            InitialiseGPIO();
+#endif
 
             L.D("Starting WebServer...");
             CreateWebHostBuilder(args).Build().Run();

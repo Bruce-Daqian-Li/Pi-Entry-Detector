@@ -47,12 +47,11 @@ namespace EDD.Utils
             CurrentEntry.Records = new List<TimeRange>();
             //CurrentTimeRange = new TimeRange();
 
-            if (!Program.DEBUG_MODE)
-            {
-                InitialisePin();
-                recieveWorker = new Thread(CoreProcess);
-                recieveWorker.Start();
-            }
+#if (!DEBUG)
+            InitialisePin();
+            recieveWorker = new Thread(CoreProcess);
+            recieveWorker.Start();
+#endif
         }
         public static void ProcessTimeEntry(TimeRange range)
         {
